@@ -8,6 +8,7 @@ module Typus
         # Model fields as an <tt>ActiveSupport::OrderedHash</tt>.
         def model_fields
           ActiveSupport::OrderedHash.new.tap do |hash|
+            columns.reject! { |u| u.name.nil? or u.type.nil? }
             columns.map { |u| hash[u.name.to_sym] = u.type.to_sym }
           end
         end
